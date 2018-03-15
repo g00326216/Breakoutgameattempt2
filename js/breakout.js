@@ -26,28 +26,28 @@ function drawPaddle() {
 	ctx.fill();
 	ctx.closePath();
 }
-function draw () {
-	ctx.clearRect(0, 0, canvas.width, canvas.height);
+function draw() {
+	ctx.clearRect(0,0,canvas.width,canvas.height);
 	drawBall();
 	drawPaddle();
 	x += dx;
 	y += dy;
 	
-	if(y+ dy > canvas.height-ballRadius || y+dy <ballRadius){
-		dy=-dy;
-		
+	if(x + dx > canvas.width-ballRadius || x+dx < ballRadius) {
+		dx = -dx;
 	}
-	if(x+dx > canvas.width-ballRadius || x+dx <ballRadius){
-		dx=-dx;
-		
-	}
-	if(rightPressed && paddleX < canvas.width-paddleWidth) {
+	
+	if(y + dy < ballRadius) {
+		dy = -dy;
+	} else if(y + dy > canvas.height-ballRadius) {
+		alert("GAME OVER");
+		document.location.reload();
+	}	
+		if(rightPressed && paddleX < canvas.width-paddleWidth) {
 		paddleX += 7;
-		paddleX += 50;
 	}
 	else if(leftPressed && paddleX > 0) {
 		paddleX -= 7;
-		paddleX -= 50;
 	}
 }
 
