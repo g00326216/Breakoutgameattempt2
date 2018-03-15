@@ -1,33 +1,39 @@
-<!DOCTYPE html>
-<html>
-<!-- This is a really basic but fun breakout game -->
-<head>
-    <meta charset="utf-8" />
-    <title>JavaScript: Breakout</title>
-      <link href='https://fonts.googleapis.com/css?family=Play:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-<div id= "gametitle">
-        <h2>A Javascript Breakout game!</h2>
-    </div>
-    <div id="scorezone">
-        <span id="gamescore">Score: 0</span>
-        <span id="gamelives">Lives: 3</span>
-        <h1 id="gamestop">Enjoy the game - instructions below</h1>
-</div>
-    
-<canvas id="myCanvas" width="480" height="320"></canvas>
-
-<script src="js/breakout.js"> </script>
-
-<div id="instructions">
-    <h2>Instructions</h2>
-    <p></p>
-    <h3>Gameplay Controls</h3>
-    <p>Use <kbd>&larr;</kbd><kbd>&rarr;</kbd> to move.</p>
-    <br/><span></span>
-</div>
-    
-</body>
-</html>
++//Setup the canvas
+ var canvas = document.getElementById("myCanvas");
+ var ctx = canvas.getContext("2d");
+ 
+-ctx.beginPath();
+-ctx.rect(20, 40, 100, 50);
+-ctx.fillStyle = "#FF0000";
+-ctx.fill();
+-ctx.closePath();
++//Setup the starting point
++var x = canvas.width/2;
++var y = canvas.height-30;
+ 
+-ctx.beginPath();
+-ctx.arc(240, 160, 20, 0, Math.PI*2, false);
+-ctx.fillStyle = "green";
+-ctx.fill();
+-ctx.closePath();
++//Draw the ball
++function draw() {
++	ctx.beginPath();
++	ctx.arc(x, y, 10, 0, Math.PI*2);
++	ctx.fillStyle = "#0095DD";
++	ctx.fill();
++	ctx.closePath();
++}
+ 
+-ctx.beginPath();
+-ctx.rect(160, 10, 100, 40);
+-ctx.strokeStyle = "rgba(0, 0, 255, 0.5)";
+-ctx.stroke();
+-ctx.closePath();
+-
+-ctx.beginPath();
+-ctx.rect(490, 290, 20, 20);
+-ctx.fillStyle = "yellow";
+-ctx.fill();
+-ctx.closePath();
++setInterval(draw,10);
