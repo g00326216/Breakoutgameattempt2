@@ -6,8 +6,8 @@ var y = canvas.height-30;
 var dx = 2;
 var dy = -2;
 var ballColour = "#0095DD"
-var paddleHeight = 10;
-var paddleWidth = 75;
+var paddleHeight = 12;
+var paddleWidth = 80;
 var paddleX = (canvas.width-paddleWidth)/2;
 var rightPressed = false;
 var leftPressed = false;
@@ -40,14 +40,20 @@ function draw() {
 	if(y + dy < ballRadius) {
 		dy = -dy;
 	} else if(y + dy > canvas.height-ballRadius) {
+		
+		if(x > paddleX && x < paddleX + paddleWidth) {
+			dy = -dy;
+		}
+		else{
 		alert("GAME OVER");
 		document.location.reload();
+		}
 	}	
 		if(rightPressed && paddleX < canvas.width-paddleWidth) {
-		paddleX += 7;
+		paddleX += 4;
 	}
 	else if(leftPressed && paddleX > 0) {
-		paddleX -= 7;
+		paddleX -= 4;
 	}
 }
 
