@@ -24,6 +24,7 @@ var brickOffsetLeft = 30;
 var bricks = [];
 
 var score = 0;
+var lives = 3;
 
 //sounds
 var winningSound = new Audio('sounds/woohoo.wav');
@@ -77,6 +78,7 @@ function draw() {
 	drawBricks();
 	collisionDetection();
 	drawScore();
+	drawLives();
 	x += dx;
 	y += dy;
 	
@@ -92,12 +94,22 @@ function draw() {
 			dy++;
 			dy = -dy;
 		}
-		else{
-		gameOverSound.play();
-		alert("GAME OVER");
-		document.location.reload();
-		}
-	}	
+	else {
+					lives--;
+					if(!lives) {
+					gameOverSound.play();
+					alert("Game Over");
+					document.location.reload();
+				}
+				else {
+					x = canvas.width/2;
+					y = canvas.height-30;
+					dx = 2;
+					dy = -2;
+					paddleX = (canvas.width-paddleWidth)/2;
+				}
+			}
+		}	
 		if(rightPressed && paddleX < canvas.width-paddleWidth) {
 		paddleX += 7;
 	}
@@ -159,5 +171,10 @@ function mouseMoveHandler(e) {
 		paddleX = relativeX - paddleWidth/2;
 	}
 }
-
+function drawLives() {
+	ctx.font = "16px Ariel";
+	ctx.fillStyle = "#0095DD";
+	ctx.fillText("Lives: "+lives, canvas.width-65, 20);
+	document.getElementById("gamelives").innerHTML = "Lives: "+lives;
+}
 setInterval(draw, 10);
