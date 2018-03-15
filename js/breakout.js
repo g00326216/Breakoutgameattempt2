@@ -21,9 +21,13 @@ function draw () {
 	y += dy;
 	if(y+ dy > canvas.height-ballRadius || y+dy <ballRadius){
 		dy=-dy;
+		ctx.fillStyle ="red";
+		ctx.fill();
 	}
 	if(x+dx > canvas.width-ballRadius || x+dx <ballRadius){
 		dx=-dx;
+		ctx.fillStyle = "red";
+		ctx.fill();
 	}
 	
 }
