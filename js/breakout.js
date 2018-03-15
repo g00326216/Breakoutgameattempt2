@@ -25,6 +25,10 @@ var bricks = [];
 
 var score = 0;
 
+//sounds
+var winningSound = new Audio('sounds/woohoo.wav');
+var scoreSound = new Audio('sounds/success.wav');
+var gameOverSound = new Audio('sounds/gameover.wav');
 
 for(c=0; c<brickColumnCount; c++) {
 	bricks[c] = [];
@@ -89,6 +93,7 @@ function draw() {
 			dy = -dy;
 		}
 		else{
+		gameOverSound.play();
 		alert("GAME OVER");
 		document.location.reload();
 		}
@@ -129,8 +134,10 @@ function collisionDetection() {
 				if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight){
 				dy = -dy;
 				b.status = 0;
-				score++;
+				score+=10;
+				scoreSound.play();
 				if(score == brickRowCount*brickColumnCount) {
+					winningSound.play();
 					alert("YOU WIN, CONGRATULATIONS!");
 				document.location.reload();}
 				}
