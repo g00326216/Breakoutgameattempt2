@@ -65,6 +65,7 @@ function draw() {
 	drawBall();
 	drawPaddle();
 	drawBricks();
+	collisionDetection();
 	x += dx;
 	y += dy;
 	
@@ -85,10 +86,10 @@ function draw() {
 		}
 	}	
 		if(rightPressed && paddleX < canvas.width-paddleWidth) {
-		paddleX += 4;
+		paddleX += 7;
 	}
 	else if(leftPressed && paddleX > 0) {
-		paddleX -= 4;
+		paddleX -= 7;
 	}
 }
 
@@ -110,6 +111,16 @@ function keyUpHandler(e) {
 	}
 	else if(e.keyCode == 37) {
 		leftPressed = false;
+	}
+}
+function collisionDetection() {
+	for(c=0; c<brickColumnCount; c++) {
+		for(r=0; r<brickRowCount; r++) {
+			var b = bricks[c][r];
+			if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight){
+				dy = -dy;
+			}
+		}
 	}
 }
 
