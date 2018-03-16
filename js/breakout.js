@@ -1,36 +1,50 @@
+//Setup the canvas
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext("2d");
-var ballRadius = 10;
+
+
+//Set the starting paoint
 var x = canvas.width/2;
 var y = canvas.height-30;
+
+//Ball
+var ballRadius = 9;
+var ballColour = "black"
+var paddleHeight = 13;
+
+//Move the ball
 var dx = 2;
 var dy = -2;
-var ballColour = "#0095DD"
-var paddleHeight = 12;
-var paddleWidth = 80;
+
+//Paddle
+var paddleWidth = 90;
 var paddleX = (canvas.width-paddleWidth)/2;
+
+//move paddle
 var rightPressed = false;
 var leftPressed = false;
 
-
-var brickRowCount = 3;
-var brickColumnCount = 5;
-var brickWidth = 75;
+//brick
+var brickRowCount = 4;
+var brickColumnCount = 6;
+var brickWidth = 57;
 var brickHeight = 20;
-var brickPadding = 10;
+var brickPadding = 12;
 var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
 
 var bricks = [];
 
 var score = 0;
-var lives = 3;
+
+var lives = 5;
 
 //sounds
 var winningSound = new Audio('sounds/woohoo.wav');
 var scoreSound = new Audio('sounds/success.wav');
 var gameOverSound = new Audio('sounds/gameover.wav');
 
+//Array for 2D bricks
 for(c=0; c<brickColumnCount; c++) {
 	bricks[c] = [];
 	for (r=0; r<brickRowCount; r++) {
@@ -48,7 +62,7 @@ function drawBricks() {
 				bricks[c][r].y = brickY;
 				ctx.beginPath();
 				ctx.rect(brickX, brickY, brickWidth, brickHeight);
-				ctx.fillStyle = "#0095DD";
+				ctx.fillStyle = "red";
 				ctx.fill();
 				ctx.closePath();
 			}
@@ -60,14 +74,14 @@ function drawBricks() {
 function drawBall() {
 	ctx.beginPath();
 	ctx.arc(x, y, ballRadius, 0, Math.PI*2);
-	ctx.fillStyle = "#0095DD";
+	ctx.fillStyle = "black";
 	ctx.fill();
 	ctx.closePath();
 }
 function drawPaddle() {
 	ctx.beginPath();
 	ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
-	ctx.fillStyle = "#0095DD";
+	ctx.fillStyle = "red";
 	ctx.fill();
 	ctx.closePath();
 }
@@ -149,22 +163,23 @@ function collisionDetection() {
 				b.status = 0;
 				score+=10;
 				scoreSound.play();
-				if(score == brickRowCount*brickColumnCount) {
-					winningSound.play();
-					alert("YOU WIN, CONGRATULATIONS!");
-				document.location.reload();}
+				if(score == brickRowCount*brickColumnCount*10) {
+						winningSound.play();
+						alert("You Win! Congratulations!");
+						document.location.reload();
 				}
 			}
 		}
 	}
 }
-
+}
 function drawScore() {
-	ctx.font = "16px Arial";
-	ctx.fillStyle = "#0095DD";
+	ctx.font = "17px Lucida Sans";
+	ctx.fillStyle = "#black";
 	ctx.fillText("Score: "+score, 8, 20);
 	document.getElementById("gamescore").innerHTML = "Score: " + score;
 }
+//Mouse movement 
 function mouseMoveHandler(e) {
 	var relativeX = e.clientX - canvas.offsetLeft;
 	if(relativeX > 0 && relativeX < canvas.width) {
@@ -172,8 +187,8 @@ function mouseMoveHandler(e) {
 	}
 }
 function drawLives() {
-	ctx.font = "16px Ariel";
-	ctx.fillStyle = "#0095DD";
+	ctx.font = "17px Lucida Sans";
+	ctx.fillStyle = "#black";
 	ctx.fillText("Lives: "+lives, canvas.width-65, 20);
 	document.getElementById("gamelives").innerHTML = "Lives: "+lives;
 }
